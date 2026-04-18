@@ -7,6 +7,8 @@ node.js - v22.22.2
 vscode or others
 git clone  xxx
 use branch code
+npm install hexo-cli -g
+npm install hexo-filter-mathjax
 
 使用
 npm install 
