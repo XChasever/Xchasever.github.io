@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    
+    <meta name="author" content="Xchasever">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/images/idea.html"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/images/idea.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-04-21T06:17:48.399Z">
+<meta property="article:modified_time" content="2026-04-21T06:17:48.399Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Xchasever加速实验室 - Redefine Your Hexo Journey.
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"算力无界，延迟归零，我即引擎。","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":[{"icon":"fa-brands fa-github","url":null},{"icon":"fa-brands fa-twitter","url":null},{"icon":"fa-solid fa-at","url":"you@example.com"},{"icon":"fa-brands fa-telegram","url":null},{"icon":"/images/custom-icon.svg","url":null}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null},{"icon":"/images/custom-icon.svg","qr":null}]}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-heart fa-beat\" style=\"--fa-animation-duration: 0.5s; color: #f54545\"></i>","start":"2022/8/17 11:45:14","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2022/8/17 11:45:14","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.i18n = {"search":"Search...","toc":"On this page","prev":"Prev","next":"Next","prev_posts":"Prev posts","next_posts":"Next posts","page":"Page %d","recent_posts":"Recent Posts","share":"Share","powered_by":"POWERED BY %s","theme":"THEME","rss_feed":"RSS Feed","category":"Category","categories":"Categories","tag":"Tag","tags":"Tags","post":"Post","posts":"Posts","tagcloud":"Tag Cloud","comment":"Comment","comments":"Comments","home":"Home","archive":"Archive","archives":"Archives","top":"TOP","sticky":"Sticky","go-back-home":"Go Back Home","masonry_loading":"Loading photos...","image_viewer":"Image viewer","close":"Close","exif":{"title":"EXIF","cards":{"camera":"Camera","lens":"Lens","exposure":"Exposure","other":"Other"},"fields":{"make":"Brand","model":"Model","date_taken":"Date taken","lens_model":"Lens","focal_length":"Focal length","focus_mode":"Focus mode","shutter":"Shutter","aperture":"Aperture","iso":"ISO","exposure_program":"Exposure program","exposure_compensation":"Exposure compensation","metering_mode":"Metering mode","flash":"Flash","white_balance":"White balance","latitude":"Latitude","longitude":"Longitude","altitude":"Altitude"},"status":{"loading":"Loading...","no_exif":"No EXIF available","library_missing":"EXIF library not loaded","image_source_missing":"Image source unavailable","unavailable":"EXIF unavailable (blocked by CORS or missing metadata)","flag_unavailable":"EXIF unavailable"}},"about":"About","changelog":"Changelog","links":"Links","link":"Link","friends":"Friends","friend":"Friend","timeline":"Timeline","shuoshuo":"Shuoshuo","bookmarks":"Bookmarks","site_uv":"VISITOR COUNT","site_pv":"TOTAL PAGE VIEWS","read_more":"Read more","wordcount":"Words","min2read":"Mins","status":"Status","runtime":"Blog up for","days":"days","hours":"hrs","minutes":"Min","seconds":"Sec","optimized_by":"and Optimized by Evan","rights":"All Rights Reserved","site_posts":"%s posts in total","site_wordcount":"%s words in total","copyright":{"author":"Author","title":"Title","link":"Link","create_time":"Created at","update_time":"Updated at","license_title":"License","license_content":"This work is licensed under %s.","all_rights_reserved":"All Rights Reserved &#169; %s","public_domain":"This work is in the public domain."},"ago":{"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"},"create_time":"Created","update_time":"Updated","expired":"This post is written %s days ago, and the content may not be up to date."};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Xchasever加速实验室
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">1</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="page-template-container">
+	
+
+	
+
+	<div class="page-template-content markdown-body">
+		
+		<h1></h1>
+		
+
+		<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>边缘计算任务卸载 · 创新全景总表</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+        }
+        body {
+            margin: 20px 15px;
+            background: #f5f7fc;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            padding: 20px 20px 30px;
+        }
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            margin-top: 5px;
+            margin-bottom: 8px;
+            color: #0b2b4a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #4a627a;
+            margin-left: 12px;
+        }
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 18px;
+        }
+        .stats {
+            background: #eef2f9;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            color: #1e3a6f;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background: white;
+            border: 1px solid #ccd9e6;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #1f3a5f;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn:hover {
+            background: #1f3a5f;
+            border-color: #1f3a5f;
+            color: white;
+            box-shadow: 0 8px 14px rgba(31,58,95,0.15);
+        }
+        .btn-download {
+            background: #1e4a6b;
+            border-color: #1e4a6b;
+            color: white;
+        }
+        .btn-download:hover {
+            background: #0f2e44;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 18px;
+            border: 1px solid #e2e9f2;
+            background: white;
+            margin-top: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1100px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        th {
+            background: #1f3a5f;
+            color: white;
+            font-weight: 600;
+            padding: 16px 12px;
+            text-align: left;
+            border-right: 1px solid #345173;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+        }
+        th:last-child {
+            border-right: none;
+        }
+        td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e6edf5;
+            vertical-align: top;
+            background-color: #ffffff;
+            color: #1e2f3e;
+            white-space: normal;
+            word-break: break-word;
+            line-height: 1.45;
+        }
+        tr:hover td {
+            background-color: #fafcff;
+        }
+        .col-index {
+            width: 60px;
+            text-align: center;
+            font-weight: 600;
+            color: #1f3a5f;
+        }
+        .col-category {
+            width: 130px;
+            font-weight: 500;
+            background-color: #f9fbfe;
+        }
+        .col-direction {
+            width: 200px;
+            font-weight: 600;
+            color: #0b2b4a;
+        }
+        .col-desc {
+            min-width: 420px;
+        }
+        .category-badge {
+            display: inline-block;
+            background: #e3eaf3;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1f3a5f;
+            white-space: nowrap;
+        }
+        .footer-note {
+            margin-top: 25px;
+            text-align: right;
+            color: #4d6a8f;
+            font-size: 0.9rem;
+            border-top: 1px dashed #bcccdb;
+            padding-top: 20px;
+        }
+        .search-box {
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid #ccd9e6;
+            width: 260px;
+            font-size: 0.9rem;
+            background: white;
+        }
+        .search-box:focus {
+            outline: 2px solid #1f3a5f;
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>
+        ⚡ 边缘计算推理加速 · 创新全景表
+        <small>场景·分割·优化·算法·架构·使能·安全·硬件</small>
+    </h1>
+    
+    <div class="toolbar">
+        <div class="stats" id="rowCountDisplay">加载数据中...</div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <input type="text" class="search-box" id="searchInput" placeholder="🔍 搜索方向/描述..." autocomplete="off">
+            <div class="btn-group">
+                <button class="btn" id="resetFilterBtn" title="清除搜索">🔄 重置</button>
+<!--                <button class="btn btn-download" id="downloadCsvBtn">⬇ 下载 CSV</button>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table id="innovationTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>创新类别</th>
+                    <th>创新方向</th>
+                    <th>创新描述 (一句话)</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- 由 JavaScript 动态渲染 -->
+            </tbody>
+        </table>
+    </div>
+    <div class="footer-note">
+        ✅ 包含场景、任务分割、优化建模、算法、架构、新兴使能、安全隐私、硬件通信 · 共计 <span id="totalCount">0</span> 项创新
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ----- 创新数据集 (融合八大类别 + 用户新增) -----
+        const innovations = [
+            // 一、场景创新 (25项)
+            { category: "场景创新", direction: "车载边缘计算 (VEC)", desc: "利用车辆与路侧基础设施(V2I)、车车(V2V)、车与万物(V2X)协同实现任务卸载，支持自动驾驶、增强现实等延迟敏感应用" },
+            { category: "场景创新", direction: "无人机辅助边缘计算 (UAV-MEC)", desc: "利用无人机的高机动性，在灾后应急、野外作业等场景提供临时的边缘计算卸载服务" },
+            { category: "场景创新", direction: "卫星边缘计算", desc: "通过低轨卫星星座为地面网络覆盖盲区提供边缘计算卸载能力，适用于海洋、荒漠、高空等场景" },
+            { category: "场景创新", direction: "智能家居边缘计算", desc: "在家庭场景下将智能设备产生的计算任务卸载至家庭网关或本地边缘服务器，降低云端依赖" },
+            { category: "场景创新", direction: "工业物联网边缘计算", desc: "将工厂设备、传感器产生的实时计算任务卸载至车间级边缘节点，满足工业控制低延迟、高可靠需求" },
+            { category: "场景创新", direction: "智慧城市边缘计算", desc: "在智能交通、公共安防、环境监测等城市场景中，将海量传感数据卸载至部署于城市各处的边缘节点处理" },
+            { category: "场景创新", direction: "医疗健康边缘计算", desc: "将可穿戴设备和医疗传感器产生的健康监测数据卸载至医院或社区边缘节点，实现低延迟健康预警" },
+            { category: "场景创新", direction: "增强现实/虚拟现实 (AR/VR) 边缘计算", desc: "将AR/VR应用中的图形渲染、空间定位等计算密集型任务卸载至边缘服务器，保障毫秒级交互体验" },
+            { category: "场景创新", direction: "自动驾驶边缘计算", desc: "将自动驾驶车辆感知、规划、控制等任务中的高计算负载模块卸载至路侧边缘单元(RSU)协同执行" },
+            { category: "场景创新", direction: "智能制造边缘计算", desc: "在工业4.0场景中，将机器人控制、产线质检等任务卸载至产线侧边缘计算节点，支持柔性制造与实时调度" },
+            { category: "场景创新", direction: "智慧农业边缘计算", desc: "将农田传感器、无人机巡检等数据卸载至农场边缘网关进行处理，减少向云端传输的海量数据" },
+            { category: "场景创新", direction: "海洋/水下边缘计算", desc: "将海洋传感器、水下机器人产生的数据卸载至水面基站或浮标边缘节点，解决远海通信带宽瓶颈" },
+            { category: "场景创新", direction: "应急救灾边缘计算", desc: "在地震、洪水等通信基础设施受损场景下，由无人机和便携边缘节点临时组网，提供应急计算卸载服务" },
+            { category: "场景创新", direction: "智慧零售边缘计算", desc: "在商场和门店场景中，将摄像头视频分析、客流统计等任务卸载至店内边缘服务器，支持实时精准营销" },
+            { category: "场景创新", direction: "智慧校园/园区边缘计算", desc: "在校园或园区内部署边缘节点，将安防监控、门禁识别、能耗管理等任务本地化处理" },
+            { category: "场景创新", direction: "元宇宙边缘计算", desc: "将元宇宙场景中的三维渲染、物理模拟、实时交互等重计算任务卸载至边缘节点，降低终端算力门槛" },
+            { category: "场景创新", direction: "电力物联网边缘计算", desc: "在智能电网中，将输电线路监测、变电站巡检等任务卸载至电力边缘网关，实现低延迟故障检测" },
+            { category: "场景创新", direction: "矿山/井下边缘计算", desc: "在矿井等恶劣通信环境下，利用本地边缘节点处理井下传感器和人员定位数据，保障作业安全" },
+            { category: "场景创新", direction: "港口/物流园区边缘计算", desc: "在港口自动化场景中，将集装箱调度、无人集卡路径规划等任务卸载至园区边缘服务器" },
+            { category: "场景创新", direction: "铁路/轨道交通边缘计算", desc: "将列车运行监测、乘客信息服务等任务卸载至沿线部署的边缘节点，支持高速移动下的实时响应" },
+            { category: "场景创新", direction: "超低时延确定性网络场景", desc: "在工业控制、远程手术等需要确定性低时延的场景中，通过边缘卸载结合时间敏感网络(TSN)技术保证服务质量" },
+            { category: "场景创新", direction: "极地/高寒环境边缘计算", desc: "在极端气候环境下，利用耐低温边缘计算设备实现科学考察数据的本地化处理与卸载" },
+            { category: "场景创新", direction: "大规模赛事/演唱会边缘计算", desc: "在高密度人群场景中，部署临时边缘节点卸载视频直播、社交分享等突发性海量计算任务" },
+            { category: "场景创新", direction: "地下停车场/隧道边缘计算", desc: "在GPS信号缺失的封闭场景中，由边缘节点处理车辆定位、导航辅助等计算任务" },
+            { category: "场景创新", direction: "近地轨道空间边缘计算", desc: "在空间站或卫星平台上部署边缘计算节点，直接处理对地观测数据，减少星地链路传输负担" },
+
+            // 二、任务类型与分割创新 (原有20项) + 新增『神经网络推理加速』整合在此（属于分割/加速范畴）
+            { category: "任务类型与分割", direction: "有向无环图(DAG)依赖型任务分割", desc: "以DAG建模任务内部子模块之间的执行依赖关系，支持复杂应用的精细化部分卸载" },
+            { category: "任务类型与分割", direction: "多DAG应用并发部分卸载", desc: "在车联网等多应用并发场景中，对多个DAG型应用同时进行部分卸载决策，通过执行优先级算法将各DAG转化为序列结构以优化整体时延和能耗" },
+            { category: "任务类型与分割", direction: "深度神经网络(DNN)模型分割", desc: "将DNN模型在设备与边缘之间进行纵向分割，头部在终端执行特征提取，尾部在边缘服务器完成推理" },
+            { category: "任务类型与分割", direction: "DNN横向分割与分布式推理", desc: "将DNN模型的不同层或算子并行分配到多个异构边缘设备上协同执行，加速推理过程" },
+            { category: "任务类型与分割", direction: "大模型张量并行分割", desc: "针对大语言模型(LLM)等巨型模型，将模型参数张量沿不同维度切分，卸载至多边缘节点进行并行推理" },
+            { category: "任务类型与分割", direction: "数据并行分割", desc: "将大规模数据切分为多个独立子集，分别卸载至不同边缘节点进行并行处理，适用于数据密集型应用" },
+            { category: "任务类型与分割", direction: "流水线并行分割", desc: "将任务按照流水线阶段切分，每个阶段部署到不同节点上形成处理流水线，相邻阶段间传递中间结果" },
+            { category: "任务类型与分割", direction: "任务类型感知卸载", desc: "根据任务类型(独立型、依赖型、周期性、突发性等)的不同特性设计差异化的卸载策略" },
+            { category: "任务类型与分割", direction: "计算分流与早退机制(Early Exiting)", desc: "在DNN推理中设置多个中间出口，当推理置信度足够高时提前终止并返回结果，减少不必要的卸载和计算开销" },
+            { category: "任务类型与分割", direction: "微服务粒度的任务卸载", desc: "将应用拆分为微服务单元，以微服务为最小粒度进行卸载决策与编排，支持细粒度的资源调配与弹性伸缩" },
+            { category: "任务类型与分割", direction: "功能即服务(FaaS)粒度的卸载", desc: "以无服务器函数为基本执行单元，在边缘-云连续体中实现函数级动态卸载与跨节点迁移" },
+            { category: "任务类型与分割", direction: "语义感知任务卸载", desc: "基于任务所携带的语义信息而非原始数据进行卸载决策，在发送端仅传输语义特征而非全量数据" },
+            { category: "任务类型与分割", direction: "混合语义通信与计算卸载", desc: "将语义通信与传统计算卸载相结合，在传输前进行语义提取与压缩，边缘侧基于语义信息完成推理" },
+            { category: "任务类型与分割", direction: "大模型推理的分层卸载(云边端协同)", desc: "将大模型的不同部分分别部署在端侧、边侧和云侧，根据任务复杂度动态选择执行路径" },
+            { category: "任务类型与分割", direction: "认知边缘计算中的LLM/AI Agent卸载", desc: "在资源受限的边缘设备上部署推理能力的大语言模型和AI智能体，通过模型量化、蒸馏和卸载技术实现认知任务的分布式执行" },
+            { category: "任务类型与分割", direction: "代码感知的任务分割", desc: "将应用程序在编译时或运行时自动拆分为可独立卸载的代码块，基于代码依赖图进行静态或动态任务分割" },
+            { category: "任务类型与分割", direction: "面向多模态数据的任务分割", desc: "针对视频、音频、文本等混合模态数据，按模态类型分别切分并卸载至不同专用边缘节点并行处理" },
+            { category: "任务类型与分割", direction: "面向持续学习的增量任务卸载", desc: "在边缘端持续接收新数据和新任务时，动态调整卸载策略以支持模型增量更新" },
+            { category: "任务类型与分割", direction: "跨层缓存感知的任务分割", desc: "利用边缘节点间的多级缓存层级，将任务分割为缓存友好型子任务，最大化缓存命中率" },
+            { category: "任务类型与分割", direction: "多分辨率任务分割", desc: "将图像/视频任务按分辨率层次切分，低分辨率版本在终端快速处理，高分辨率细节按需卸载至边缘或云端" },
+            // 新增：神经网络推理加速
+            { category: "任务类型与分割", direction: "神经网络推理加速(综合)", desc: "利用模型剪枝、量化、知识蒸馏、专用硬件及算子融合等技术，加速边缘端或卸载后的神经网络推理，降低时延与能耗" },
+
+            // 三、建模与优化目标创新 (22项) + 新增『可靠性任务卸载』
+            { category: "建模与优化目标", direction: "最小化任务执行时延", desc: "以端到端任务完成时延为优化目标，综合考虑计算时间、传输时间和排队时间" },
+            { category: "建模与优化目标", direction: "最小化终端能耗", desc: "以移动设备电池续航为核心优化目标，将计算密集型任务卸载至边缘以减少终端功耗" },
+            { category: "建模与优化目标", direction: "最小化系统总能耗", desc: "联合优化终端能耗、边缘节点能耗和传输能耗，实现系统级能效最优" },
+            { category: "建模与优化目标", direction: "时延-能耗联合优化(加权折中)", desc: "构建时延与能耗的加权效用函数，通过调整权重系数平衡两者之间的冲突关系" },
+            { category: "建模与优化目标", direction: "最小化卸载成本/服务价格", desc: "将边缘计算资源的价格纳入决策模型，在满足服务质量的前提下最小化用户支出" },
+            { category: "建模与优化目标", direction: "图像分辨率与推理精度的联合优化", desc: "在终端上传图像前自适应调整分辨率以降低传输开销，同时保证边缘端推理精度满足应用需求" },
+            { category: "建模与优化目标", direction: "多目标联合优化(时延、能耗、成本、精度)", desc: "同时优化多个相互冲突的目标，求解Pareto最优前沿" },
+            { category: "建模与优化目标", direction: "带宽受限下的吞吐量最大化", desc: "在通信带宽有限的条件下，通过优化卸载决策和资源分配以最大化系统任务吞吐量" },
+            { category: "建模与优化目标", direction: "任务成功率/可靠性最大化", desc: "以任务成功执行的概率或服务可用性为目标，考虑边缘节点故障、网络中断等不确定性因素" },
+            { category: "建模与优化目标", direction: "公平性感知的资源分配", desc: "在多个用户或应用之间公平地分配边缘计算资源，避免部分用户长期得不到服务" },
+            { category: "建模与优化目标", direction: "负载均衡优化", desc: "将任务合理分配到不同边缘节点，避免部分节点过载而其他节点闲置" },
+            { category: "建模与优化目标", direction: "碳排放/碳足迹最小化", desc: "将边缘节点使用的电力来源和碳排放纳入优化模型，实现绿色边缘计算" },
+            { category: "建模与优化目标", direction: "服务质量(QoS)保障下的多目标优化", desc: "在满足最低服务质量约束的前提下优化其他指标" },
+            { category: "建模与优化目标", direction: "任务卸载成功率与完成率联合优化", desc: "综合考虑卸载请求的成功率和任务最终完成率两个指标，构建联合优化模型" },
+            { category: "建模与优化目标", direction: "用户体验质量(QoE)最大化", desc: "从用户主观体验出发建模优化目标，综合考量响应速度、交互流畅度、结果质量等因素" },
+            { category: "建模与优化目标", direction: "长期平均奖励最大化(MDP建模)", desc: "将动态环境下的卸载决策建模为马尔可夫决策过程，以长期累积奖励为优化目标" },
+            { category: "建模与优化目标", direction: "端到端服务等级协议(SLA)合规性", desc: "以SLA中约定的可用性、响应时间、吞吐量等指标为约束和优化目标" },
+            { category: "建模与优化目标", direction: "数字孪生仿真驱动的预优化", desc: "利用数字孪生在虚拟空间中模拟多种卸载方案的效果，提前筛选最优策略" },
+            { category: "建模与优化目标", direction: "面向异构硬件的能耗-性能建模", desc: "针对CPU、GPU、NPU等不同异构计算单元的能耗与性能特性，建立精细化卸载决策模型" },
+            { category: "建模与优化目标", direction: "移动性感知的卸载优化", desc: "将用户移动轨迹和速度纳入优化模型，预判连接切换时机，减少服务中断" },
+            { category: "建模与优化目标", direction: "面向多租户的边缘资源定价与分配", desc: "在多租户共享边缘资源的场景中，联合优化资源定价、任务卸载和带宽分配" },
+            { category: "建模与优化目标", direction: "面向绿色能源的边缘计算调度", desc: "结合可再生能源的间歇性供给特性，动态调整卸载策略以最大化绿色能源利用率" },
+            // 新增：可靠性任务卸载（复制多份冗余）
+            { category: "建模与优化目标", direction: "可靠性任务卸载(复制冗余)", desc: "将同一任务复制多份卸载到不同边缘节点冗余执行，通过投票或共识机制提高任务成功率和结果可靠性" },
+
+            // 四、算法与方法创新 (27项)
+            { category: "算法与方法", direction: "深度强化学习(DRL)", desc: "利用深度神经网络拟合Q值或策略函数，使智能体在与动态环境交互中自主学习最优卸载决策" },
+            { category: "算法与方法", direction: "多智能体强化学习(MARL)", desc: "多个智能体协同学习卸载策略，通过分布式决策适应大规模异构场景" },
+            { category: "算法与方法", direction: "元启发式算法(遗传、蚁群、粒子群等)", desc: "针对NP难的卸载优化问题，采用进化计算和群体智能算法在合理时间内搜索近优解" },
+            { category: "算法与方法", direction: "博弈论方法(Stackelberg博弈、拍卖等)", desc: "将用户与边缘服务商之间的资源竞争建模为博弈过程，求解纳什均衡以确定最优卸载决策和资源定价" },
+            { category: "算法与方法", direction: "数学规划方法(凸优化、混合整数规划)", desc: "利用拉格朗日对偶、分支定界等精确数学方法求解特定结构下的最优卸载策略" },
+            { category: "算法与方法", direction: "多臂老虎机(MAB)方法", desc: "在环境信息不完全已知的情况下，通过探索-利用平衡逐步学习各边缘节点的服务质量并优化卸载选择" },
+            { category: "算法与方法", direction: "李雅普诺夫优化", desc: "利用李雅普诺夫漂移加惩罚技术，在不需要未来信息的情况下实现队列稳定性和长期优化目标的联合控制" },
+            { category: "算法与方法", direction: "联邦学习辅助卸载", desc: "在保护数据隐私的前提下，多个边缘节点或终端协同训练全局卸载决策模型" },
+            { category: "算法与方法", direction: "联邦强化学习", desc: "将联邦学习的分布式训练框架与强化学习的序贯决策能力相结合，实现隐私保护下的协同卸载策略学习" },
+            { category: "算法与方法", direction: "元学习(Meta-Learning)加速适应", desc: "在新任务或新场景出现时，利用元学习快速适应环境变化，以少量样本完成卸载策略的迁移" },
+            { category: "算法与方法", direction: "迁移学习跨场景卸载", desc: "将在源场景中学到的卸载知识迁移至目标场景，加速新场景下策略收敛" },
+            { category: "算法与方法", direction: "模仿学习辅助离线训练", desc: "利用专家策略生成的高质量卸载决策轨迹进行监督学习，再通过环境交互微调策略" },
+            { category: "算法与方法", direction: "分布式深度学习卸载框架", desc: "在多边缘节点间协同训练全局卸载决策模型，通过异步更新实现知识共享" },
+            { category: "算法与方法", direction: "CNN与Informer结合的卸载算法", desc: "利用CNN提取边缘节点负载的局部空间特征，结合Informer自注意力机制捕获长期负载变化趋势" },
+            { category: "算法与方法", direction: "贝叶斯优化与DRL融合", desc: "利用贝叶斯优化快速找到较优超参数组合，然后由DRL在连续交互中持续优化卸载策略" },
+            { category: "算法与方法", direction: "基于指针网络的任务调度", desc: "利用指针网络处理可变长度的任务序列调度问题，输出最优任务执行顺序" },
+            { category: "算法与方法", direction: "图神经网络(GNN)建模任务依赖", desc: "利用异构图神经网络捕捉任务间的复杂依赖关系和设备拓扑结构" },
+            { category: "算法与方法", direction: "基于Transformer的序列决策", desc: "利用自注意力机制建模卸载决策序列中的长距离依赖关系" },
+            { category: "算法与方法", direction: "扩散模型用于卸载策略生成", desc: "利用扩散模型的条件生成能力，在给定系统状态和约束下生成高质量的任务卸载方案" },
+            { category: "算法与方法", direction: "集成学习卸载决策", desc: "融合多个基学习器的卸载决策，通过投票或加权机制提升决策鲁棒性" },
+            { category: "算法与方法", direction: "分层强化学习(HRL)", desc: "将复杂的卸载决策问题分解为高层策略选择和低层动作执行，分层优化" },
+            { category: "算法与方法", direction: "基于安全强化学习的风险约束卸载", desc: "在DRL中引入安全约束，确保探索过程中的策略满足安全性要求" },
+            { category: "算法与方法", direction: "因果推断增强卸载决策", desc: "利用因果推断方法识别影响卸载效果的关键因果变量，提升策略泛化能力" },
+            { category: "算法与方法", direction: "对比学习用于卸载状态表征", desc: "通过对比学习自动学习系统状态的紧凑表示，增强DRL智能体感知能力" },
+            { category: "算法与方法", direction: "边缘大模型的提示工程卸载", desc: "在边缘端部署小型模型处理简单提示，仅将复杂提示卸载至云端大模型" },
+            { category: "算法与方法", direction: "面向边缘异构性的自适应算法选择", desc: "根据边缘节点的硬件类型和算力等级，自动选择最适合的卸载算法" },
+            { category: "算法与方法", direction: "多保真度优化的任务卸载", desc: "结合低保真度快速评估和高保真度精确评估，平衡优化效率与精度" },
+
+            // 五、架构与协作模式 (20项)
+            { category: "架构与协作模式", direction: "云边协作卸载(垂直协作)", desc: "终端设备、边缘节点和云数据中心三者纵向协同，根据任务需求和资源状态动态选择执行位置" },
+            { category: "架构与协作模式", direction: "边边协作卸载(水平协作)", desc: "多个边缘节点之间横向共享计算资源，将过载节点的任务迁移至邻近轻载节点执行" },
+            { category: "架构与协作模式", direction: "边端协作卸载", desc: "边缘服务器与终端设备组成协作对，终端设备可在空闲时为其他设备提供计算服务" },
+            { category: "架构与协作模式", direction: "设备到设备(D2D)边缘卸载", desc: "终端设备之间直接通信并共享计算资源，无需经过边缘服务器中转" },
+            { category: "架构与协作模式", direction: "雾计算架构(端-雾-云三级)", desc: "在端和云之间增加雾层，提供更细粒度的计算资源分级" },
+            { category: "架构与协作模式", direction: "联邦云-边-雾架构", desc: "在多管理域、多服务商的云-边-雾基础设施之间建立联邦关系，实现跨域的互操作计算卸载" },
+            { category: "架构与协作模式", direction: "多接入边缘计算(MEC)架构", desc: "在无线接入网边缘部署计算和存储资源，通过标准化的MEC平台支持任务卸载和移动性管理" },
+            { category: "架构与协作模式", direction: "分层边缘计算架构", desc: "构建微边缘、轻边缘、重边缘和云层的多级计算卸载体系" },
+            { category: "架构与协作模式", direction: "对等边缘计算网络", desc: "边缘节点以对等网络(P2P)方式组织，任务可在任意节点间自由流转" },
+            { category: "架构与协作模式", direction: "边缘计算资源池化架构", desc: "将区域内多个边缘节点的计算、存储、网络资源虚拟化为统一资源池" },
+            { category: "架构与协作模式", direction: "计算优先网络(CFN)架构", desc: "在网络层实现计算任务的路由感知，将卸载请求像数据包一样路由到最优计算节点" },
+            { category: "架构与协作模式", direction: "空天地一体化边缘计算架构", desc: "整合卫星、高空平台、无人机和地面边缘节点，构建立体化任务卸载网络" },
+            { category: "架构与协作模式", direction: "服务网格边缘卸载", desc: "将微服务治理框架扩展至边缘环境，通过Sidecar代理实现透明的任务卸载和流量管理" },
+            { category: "架构与协作模式", direction: "算力网络(CFN/CPN)架构", desc: "将分布式算力资源通过网络统一编排调度，任务可被调度到最优的计算节点" },
+            { category: "架构与协作模式", direction: "无服务器边缘架构", desc: "在边缘端提供FaaS能力，函数按需在边缘节点上触发执行" },
+            { category: "架构与协作模式", direction: "边缘原生架构", desc: "专为边缘计算环境设计的应用架构，内置任务分区、状态同步和断网自治能力" },
+            { category: "架构与协作模式", direction: "意图驱动边缘卸载", desc: "用户仅需声明高层意图，系统自动将意图转化为底层卸载策略和资源配置" },
+            { category: "架构与协作模式", direction: "跨边缘云的服务连续体", desc: "构建从端到边缘再到云的服务连续体，支持任务在连续体上的无缝迁移" },
+            { category: "架构与协作模式", direction: "边缘计算即服务(ECaaS)", desc: "将边缘计算能力包装为按需付费的云服务，通过统一API提供跨地域任务卸载" },
+            { category: "架构与协作模式", direction: "面向移动性管理的分层MEC架构", desc: "在MEC架构中引入移动性管理实体，负责跟踪用户位置、预判切换并触发任务预迁移" },
+
+            // 六、新兴使能技术 (22项)
+            { category: "新兴使能技术", direction: "数字孪生使能卸载", desc: "建立物理边缘系统的数字镜像，在孪生空间中进行卸载策略预演、性能评估和实时优化" },
+            { category: "新兴使能技术", direction: "数字孪生与DRL融合卸载", desc: "将数字孪生作为DRL的训练沙箱，在孪生环境中进行大量试错学习" },
+            { category: "新兴使能技术", direction: "智能反射面(RIS)辅助卸载", desc: "通过可编程的智能超表面调控无线信道环境，提升终端到边缘节点的通信质量" },
+            { category: "新兴使能技术", direction: "数字孪生+RIS联合卸载", desc: "利用数字孪生实时建模RIS配置和信道状态，联合优化RIS相移、波束成形和卸载决策" },
+            { category: "新兴使能技术", direction: "区块链使能可信卸载", desc: "利用区块链的分布式账本记录卸载交易，实现不可篡改的任务执行追溯和跨信任域的可信资源协作" },
+            { category: "新兴使能技术", direction: "区块链+DRL安全卸载", desc: "在区块链构建的可信环境中使用DRL进行卸载决策，保障决策过程的透明性和可审计性" },
+            { category: "新兴使能技术", direction: "基于IOTA的零手续费区块链卸载", desc: "利用IOTA的Tangle账本实现无交易费的微支付，适配边缘计算高频小额结算" },
+            { category: "新兴使能技术", direction: "智能合约驱动的自动卸载结算", desc: "通过智能合约自动化执行边缘资源使用计费和支付" },
+            { category: "新兴使能技术", direction: "边缘端SLM与云端LLM协同卸载", desc: "边缘端部署小型语言模型处理简单推理，复杂语义理解卸载至云端大模型" },
+            { category: "新兴使能技术", direction: "大模型推测解码卸载", desc: "边缘端使用小型草稿模型快速生成候选token，卸载至云端由大模型并行验证" },
+            { category: "新兴使能技术", direction: "边缘大模型量化与压缩卸载", desc: "通过模型量化、剪枝、知识蒸馏将大模型瘦身后部署至边缘端" },
+            { category: "新兴使能技术", direction: "面向AI Agent的边缘任务编排", desc: "在边缘环境中编排多个AI Agent协同完成复杂认知任务" },
+            { category: "新兴使能技术", direction: "算力感知网络", desc: "网络层实时感知各边缘节点的算力负载状态，并将卸载流量智能路由至算力最优节点" },
+            { category: "新兴使能技术", direction: "语义通信使能卸载", desc: "在发送端提取任务的语义特征进行传输，边缘侧基于语义完成计算" },
+            { category: "新兴使能技术", direction: "端边云协同的零信任安全架构", desc: "在端边云协同卸载中实施零信任原则——持续验证、最小权限" },
+            { category: "新兴使能技术", direction: "网络流量预测辅助卸载", desc: "利用LSTM等深度学习模型预测未来的卸载请求流量，提前进行资源预留" },
+            { category: "新兴使能技术", direction: "多跳任务卸载与中继转发", desc: "在终端无法直接连接边缘节点时，通过中间节点进行多跳中继转发" },
+            { category: "新兴使能技术", direction: "能量采集感知卸载", desc: "考虑终端设备可从环境中采集能量，动态调整卸载策略匹配能量供给" },
+            { category: "新兴使能技术", direction: "无线携能通信(SWIPT)联合卸载", desc: "在同一射频信号中同时传输信息和能量，优化长期能量效率" },
+            { category: "新兴使能技术", direction: "通感一体化(ISAC)辅助卸载", desc: "利用通信感知一体化技术实时感知设备位置、运动状态和信道条件" },
+            { category: "新兴使能技术", direction: "知识图谱增强卸载决策", desc: "利用知识图谱结构化表示任务、设备和环境的语义关系" },
+            { category: "新兴使能技术", direction: "面向边缘计算的开源平台(KubeEdge等)", desc: "基于Kubernetes扩展的边缘计算开源平台，提供设备管理、服务编排和任务卸载的统一框架" },
+
+            // 七、安全与隐私保护 (19项)
+            { category: "安全与隐私", direction: "基于同态加密的隐私保护卸载", desc: "在任务数据加密状态下完成边缘计算，边缘节点处理密文后返回加密结果" },
+            { category: "安全与隐私", direction: "基于差分隐私的卸载保护", desc: "在卸载数据中添加校准噪声，使攻击者无法推断单个用户的原始数据" },
+            { category: "安全与隐私", direction: "联邦学习隐私保护卸载", desc: "终端仅上传模型梯度而非原始任务数据至边缘节点进行聚合训练" },
+            { category: "安全与隐私", direction: "安全多方计算(SMPC)辅助卸载", desc: "多个边缘节点联合计算任务的函数值，各节点仅知道自己的输入份额" },
+            { category: "安全与隐私", direction: "可信执行环境(TEE)安全卸载", desc: "利用Intel SGX、ARM TrustZone等在边缘节点创建隔离安全区域执行敏感任务" },
+            { category: "安全与隐私", direction: "位置隐私保护的卸载", desc: "通过空间匿名、假名化等技术隐藏用户真实位置" },
+            { category: "安全与隐私", direction: "使用模式隐私保护", desc: "通过流量混淆和假任务注入隐藏用户真实的卸载行为模式" },
+            { category: "安全与隐私", direction: "区块链增强安全与可信卸载", desc: "利用区块链的不可篡改和去中心化特性，建立跨信任域的任务卸载审计和信誉管理机制" },
+            { category: "安全与隐私", direction: "拜占庭容错边缘卸载", desc: "在存在恶意或故障边缘节点的环境下，通过拜占庭容错共识机制保证卸载结果的正确性" },
+            { category: "安全与隐私", direction: "模型窃取攻击防御", desc: "在DNN模型分割卸载中，防止攻击者通过多次查询窃取模型参数" },
+            { category: "安全与隐私", direction: "对抗样本攻击防御", desc: "在边缘端部署对抗样本检测与防御机制" },
+            { category: "安全与隐私", direction: "面向边缘推理的输入隐私保护", desc: "在将图像、语音等敏感数据卸载时，采用特征变换等方法隐藏原始输入" },
+            { category: "安全与隐私", direction: "边缘计算中的访问控制与认证", desc: "建立细粒度的身份认证和权限管理机制" },
+            { category: "安全与隐私", direction: "边缘-云协同的隐私计算框架", desc: "构建端到端的隐私计算框架，支持多种隐私保护技术灵活组合" },
+            { category: "安全与隐私", direction: "数据生命周期安全管理", desc: "对卸载任务涉及的数据在采集、传输、计算、存储、销毁各阶段实施全生命周期安全管理" },
+            { category: "安全与隐私", direction: "零知识证明验证卸载正确性", desc: "边缘节点通过生成零知识证明向用户证明其正确执行了卸载任务" },
+            { category: "安全与隐私", direction: "面向边缘计算的轻量级加密", desc: "针对资源受限的边缘设备设计轻量级加密算法" },
+            { category: "安全与隐私", direction: "硬件辅助的物理不可克隆函数(PUF)认证", desc: "利用PUF的芯片指纹特性实现轻量级设备身份认证" },
+            { category: "安全与隐私", direction: "边缘侧的安全态势感知与威胁检测", desc: "在边缘节点部署轻量级入侵检测系统，实时监测异常卸载行为" },
+
+            // 八、硬件与通信技术 (14项)
+            { category: "硬件与通信", direction: "RISC-V协处理器任务卸载", desc: "利用RISC-V架构的协处理器从主CPU卸载特定类型任务，以更低功耗和成本实现异构计算卸载" },
+            { category: "硬件与通信", direction: "RISC-V边缘AI处理器", desc: "基于RISC-V架构设计专用的边缘AI推理处理器，集成轻量级IP核加速特定AI算子" },
+            { category: "硬件与通信", direction: "非正交多址接入(NOMA)卸载", desc: "允许多个用户在相同时频资源上同时传输卸载数据，通过功率域复用提升频谱效率" },
+            { category: "硬件与通信", direction: "多天线NOMA公平卸载", desc: "在多天线NOMA系统中，通过联合优化功率分配和波束成形，保证用户公平性" },
+            { category: "硬件与通信", direction: "毫米波(mmWave)边缘卸载", desc: "利用毫米波频段的超大带宽实现终端到边缘节点的高速低延迟数据传输" },
+            { category: "硬件与通信", direction: "太赫兹通信边缘卸载", desc: "利用太赫兹频段的极高带宽实现极致速率的数据卸载" },
+            { category: "硬件与通信", direction: "边缘端NPU/TPU加速器", desc: "在边缘节点部署专用的神经网络处理单元或张量处理单元，加速DNN推理类卸载任务" },
+            { category: "硬件与通信", direction: "现场可编程门阵列(FPGA)动态卸载", desc: "利用FPGA的可重构特性，根据任务类型动态配置硬件加速逻辑" },
+            { category: "硬件与通信", direction: "存内计算边缘加速", desc: "在边缘节点的存储器内部完成部分计算，大幅减少数据搬运开销" },
+            { category: "硬件与通信", direction: "近数据处理(NDP)边缘架构", desc: "将计算能力下沉至存储设备或网络接口，在数据产生的位置就近处理" },
+            { category: "硬件与通信", direction: "GPU虚拟化与切片共享", desc: "将边缘节点的GPU资源虚拟化切分，多个任务共享同一物理GPU" },
+            { category: "硬件与通信", direction: "异构计算统一编程模型", desc: "提供统一的编程框架屏蔽CPU、GPU、FPGA等异构硬件差异" },
+            { category: "硬件与通信", direction: "边缘节点液冷散热", desc: "在高密度边缘部署中采用液冷散热技术，提高算力密度" },
+            { category: "硬件与通信", direction: "软硬件协同卸载加速", desc: "通过专用指令集扩展和硬件加速器与卸载调度算法的协同设计，实现端到端卸载加速" }
+        ];
+
+        // 渲染表格
+        const tbody = document.getElementById('tableBody');
+        const rowCountDisplay = document.getElementById('rowCountDisplay');
+        const totalSpan = document.getElementById('totalCount');
+        const searchInput = document.getElementById('searchInput');
+        const resetBtn = document.getElementById('resetFilterBtn');
+
+        let filteredData = [...innovations];
+
+        function renderTable(data) {
+            let html = '';
+            data.forEach((item, idx) => {
+                html += `<tr>
+                    <td class="col-index">${idx+1}</td>
+                    <td class="col-category"><span class="category-badge">${item.category}</span></td>
+                    <td class="col-direction">${item.direction}</td>
+                    <td class="col-desc">${item.desc}</td>
+                </tr>`;
+            });
+            tbody.innerHTML = html;
+            const count = data.length;
+            rowCountDisplay.innerText = `📋 当前显示 ${count} 项创新`;
+            totalSpan.innerText = count;
+        }
+
+        function filterTable(searchTerm) {
+            if (!searchTerm.trim()) {
+                filteredData = [...innovations];
+            } else {
+                const term = searchTerm.toLowerCase();
+                filteredData = innovations.filter(item => 
+                    item.direction.toLowerCase().includes(term) || 
+                    item.desc.toLowerCase().includes(term) ||
+                    item.category.toLowerCase().includes(term)
+                );
+            }
+            renderTable(filteredData);
+        }
+
+        // 导出CSV (包含所有原始数据，不受搜索过滤影响)
+        function downloadCSV() {
+            const allRows = innovations;
+            let csvContent = "\uFEFF序号,创新类别,创新方向,创新描述\n"; // 加BOM处理中文
+            allRows.forEach((item, i) => {
+                const row = [
+                    i+1,
+                    item.category,
+                    item.direction,
+                    item.desc.replace(/,/g, '，')  // 防止英文逗号干扰
+                ];
+                csvContent += row.map(cell => `"${cell}"`).join(',') + '\n';
+            });
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', '边缘计算任务卸载创新总表.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        // 初始化
+        renderTable(innovations);
+        
+        searchInput.addEventListener('input', (e) => {
+            filterTable(e.target.value);
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            filterTable('');
+        });
+
+        document.getElementById('downloadCsvBtn').addEventListener('click', downloadCSV);
+
+        // 额外统计
+        console.log(`边缘计算创新全景表加载完成，总计 ${innovations.length} 项。`);
+    })();
+</script>
+</body>
+</html>
+	</div>
+
+	<div class="page-template-comments">
+		
+	</div>
+</div>
+
+<div class="paginator">
+	
+</div>
+  
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Xchasever</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        1 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="Image viewer">
+	<button class="image-viewer-close" type="button" aria-label="Close">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="Prev">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="Close">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="Next">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
+</div>
+
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
+</script>
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
+</body>
+
+</html>
